@@ -1,0 +1,39 @@
+---
+# Redhat based OS
+
+- name: Install MariaDB role and setup
+  include_role:
+    name: joe-speedboat.mariadb
+  vars:
+    mariadb_db_user: '{{ mariadb_db_name }}'
+    mariadb_secure_installation: yes
+    mariadb_databases:
+      - name: '{{ mariadb_db_name }}'
+    mariadb_users_create:
+      - name: '{{ mariadb_db_user }}'
+        hosts:
+        - '{{ mariadb_db_host }}'
+        password: "{{ mariadb_user_password }}"
+        privs:
+        - "{{ mariadb_db_name }}.*:ALL"
+        append_privs: no
+
+
+- name: Install Java JDK
+  yum:
+    name: java-1.8.0-openjdk
+    state: installed
+
+- name: Rundeck | add rundeck repo
+  yum:
+    name: http://repo.rundeck.org/latest.rpm
+    state: present
+  become: yes
+
+- name: Rundeck | get rundeck installed
+  yum:
+    name: rundeck
+    state: present
+  become: yes
+  notify:
+    - start rundeck

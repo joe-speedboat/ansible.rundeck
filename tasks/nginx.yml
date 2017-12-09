@@ -1,0 +1,43 @@
+---
+
+- name: Install nginx packages
+  yum:
+    name: '{{ item.package }}'
+    state: present
+  with_items: "{{ nginx_packages_EL }}"
+
+- name: enable nginx
+  service: 
+    name: nginx 
+    state: started
+    enabled: yes
+
+
+- block:
+  - name: copy selfsigned ssl cert creator script
+    template:
+      src: create-cert.sh.j2
+      dest: /usr/local/sbin/create-cert.sh
+      owner: root
+      group: root
+      mode: 0700
+
+  - name: create/update self signed cert
+    shell: /usr/local/sbin/create-cert.sh
+    changed_when: False
+
+- name: copy nginx base config
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+
+- name: create/update nginx ssl config
+  template:
+    src: rundeck.conf.j2
+    dest: /etc/nginx/conf.d/rundeck.conf
+    owner: root
+    group: nginx
+    mode: 0750
+  notify: restart nginx
+ 
+...

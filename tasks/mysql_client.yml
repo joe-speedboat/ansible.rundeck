@@ -1,0 +1,46 @@
+---
+- name: Rundeck - MySQL | make server lib directory
+  file: >
+    group=rundeck
+    mode=0655
+    owner=rundeck
+    path=/var/lib/rundeck/lib
+    state=directory
+
+- name: Rundeck - MySQL | download jdbc driver
+  get_url: >
+    dest='/var/lib/rundeck/exp/webapp/WEB-INF/lib/{{ jdbc_jar }}'
+    url='{{ jdbc_url }}'
+
+- name: Rundeck - MySQL | update database connection in configuration
+  lineinfile: >
+    dest=/etc/rundeck/rundeck-config.properties
+    regexp="^dataSource.url"
+    line="dataSource.url=jdbc:mysql://{{ mariadb_db_host }}/{{ mariadb_db_name }}?autoReconnect=true"
+  notify:
+    - restart rundeck
+
+- name: Rundeck - MySQL | update database driver in configuration
+  lineinfile: >
+    dest=/etc/rundeck/rundeck-config.properties
+    regexp="^dataSource.driverClassName"
+    line="dataSource.driverClassName=org.mariadb.jdbc.Driver"
+  notify:
+    - restart rundeck
+
+- name: Rundeck - MySQL | update database username in configuration
+  lineinfile: >
+    dest=/etc/rundeck/rundeck-config.properties
+    regexp="^dataSource.username"
+    line="dataSource.username={{ mariadb_db_user }}"
+  notify:
+    - restart rundeck
+
+- name: Rundeck - MySQL | update database password in configuration
+  lineinfile: >
+    dest=/etc/rundeck/rundeck-config.properties
+    regexp="^dataSource.password"
+    line="dataSource.password={{ mariadb_user_password }}"
+  notify:
+    - restart rundeck
+...

@@ -1,0 +1,9 @@
+---
+- name: start rundeck
+  service: name=rundeckd state=started
+
+- name: restart rundeck
+  service: name=rundeckd state=restarted
+
+- name: restart nginx
+  service: name=nginx state=restarted

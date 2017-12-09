@@ -1,0 +1,57 @@
+---
+- name: install base software
+  include_tasks: install.yml
+
+#  create groups and adjust user
+- name: Rundeck | Ensure home directory has correct permissions
+  file:
+    path: /var/lib/rundeck
+    state: directory
+    owner: rundeck
+    group: rundeck
+    mode: 0755
+
+- name: Rundeck | Ensure tmp directory has correct permissions
+  file:
+    path: /tmp/rundeck
+    state: directory
+    owner: rundeck
+    mode: 0755
+
+- name: Rundeck | Ensure server url is configured (rundeck-config.properties)
+  lineinfile: >
+    dest=/etc/rundeck/rundeck-config.properties
+    regexp="^grails.serverURL="
+    line="grails.serverURL={{ rundeck_protocol }}://{{ rundeck_domain }}"
+  notify:
+    - restart rundeck
+
+- name: Rundeck | Ensure server url is configured (framework.properties)
+  lineinfile: >
+    dest=/etc/rundeck/framework.properties
+    regexp="^framework\.server\.url\s*\=s*"
+    line="framework.server.url = {{ rundeck_protocol }}://{{ rundeck_domain }}"
+  notify:
+    - restart rundeck
+
+# configure rundeck mariadb client
+- include_tasks: mysql_client.yml
+
+# rundeck user management
+- include_tasks: users.yml
+
+# extras
+- name: download rundeck plugins
+  get_url: >
+    dest=/var/lib/rundeck/libext/{{ item.split('/')|last }}
+    url={{ item }}
+  with_items: "{{ rundeck_plugins }}"
+  notify:
+    - restart rundeck
+
+# ssh key generation
+- include_tasks: ssh.yml
+  when: rundeck_generate_ssh == True
+
+- name: install and configure nginx reverse proxy
+  include_tasks: nginx.yml

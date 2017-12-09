@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Chris Ruettimann
+  company: Private
+  description: installation and configuration of rundeck
+  min_ansible_version: 1.7
+  license: MIT
+  platforms:
+  - name: EL
+    versions:
+    - 6
+    - 7
+  categories:
+  - system
+
+dependencies: []

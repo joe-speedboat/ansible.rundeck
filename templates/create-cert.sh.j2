@@ -1,0 +1,40 @@
+#!/bin/bash
+# DESC: create self signed cert for nginx
+
+export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin
+umask 077
+
+CDIR="{{nginx_ssl_cert_dir}}"
+CDAYS="{{nginx_ssl_cert_days}}"
+HNAME="{{nginx_ssl_cert_host}}"
+KEY="$CDIR/{{nginx_ssl_cert_key}}"
+CRT="$CDIR/{{nginx_ssl_cert_crt}}"
+DHPARAM="$CDIR/{{ nginx_ssl_cert_dhparam }}"
+
+
+
+if [ -f $CRT -o -f $KEY ]; then
+   exit 0
+fi
+
+test -d $CDIR || mkdir -m 0700 -p $CDIR
+
+openssl genrsa -rand /proc/apm:/proc/cpuinfo:/proc/dma:/proc/filesystems:/proc/interrupts:/proc/ioports:/proc/pci:/proc/rtc:/proc/uptime 2048 > $KEY 2> /dev/null
+openssl dhparam -out $DHPARAM 2048
+
+FQDN=$HNAME
+[ "x$HNAME" = "x" ] && FQDN=localhost.localdomain
+
+cat << EOF | openssl req -new -key $KEY \
+         -x509 -sha256 -days $CDAYS -set_serial $RANDOM -extensions v3_req \
+         -out $CRT 2>/dev/null
+--
+SomeState
+SomeCity
+Ansible Cert
+Self Signed
+${FQDN}
+root@${FQDN}
+EOF
+
+chown nginx.root $CRT $KEY

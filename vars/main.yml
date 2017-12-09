@@ -1,0 +1,11 @@
+---
+# The following may be stable overtime
+rundeck_home_dir: /var/lib/rundeck
+rundeck_conf_dir: /etc/rundeck
+rundeck_user: rundeck
+rundeck_group: rundeck
+
+nginx_packages_EL:
+  - {package: "nginx"}
+  - {package: "openssl"}
+
