@@ -6,11 +6,14 @@ This is a role to install Rundeck with Nginx ssl reverse proxy and mariadb on si
 
 ## Role Variables
 
-## The following variables may be overridden:
+### The following variables may be overridden:
 * `rundeck_domain`: fqdn that get accessed by web browser
 * `rundeck_admin_pass`: rundeck web admin password
 * `mariadb_root_password`: MariaDB root password
 * `mariadb_user_password`: rundeck DB user password
+
+## How to use
+`ansible-playbook tests/install_rundeck.yml`
 
 ## Dependencies
 * `role`: joe-speedboat.mariadb 
