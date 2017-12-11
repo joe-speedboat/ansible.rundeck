@@ -1,5 +1,6 @@
+---
+# tests/install_rundeck.yml
 - hosts: vm06
-  vars:
   roles:
   - role: joe-speedboat.rundeck
     mariadb_root_password: 'p0st1t'
@@ -26,4 +27,3 @@
       enabled: yes
       state: restarted
 ...
-
