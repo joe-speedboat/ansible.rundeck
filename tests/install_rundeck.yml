@@ -3,9 +3,6 @@
 - hosts: vm06
   roles:
   - role: joe-speedboat.rundeck
-    mariadb_root_password: 'p0st1t'
-    mariadb_user_password: '.rundeck.'
-    rundeck_admin_pass: 'secret'
   tasks:
   - name: install firewalld
     yum:
@@ -16,6 +13,11 @@
       name: firewalld
       enabled: yes
       state: started
+  - name: open http port on firewalld
+    firewalld:
+      service: http
+      permanent: true
+      state: enabled
   - name: open https port on firewalld
     firewalld:
       service: https
@@ -27,3 +29,4 @@
       enabled: yes
       state: restarted
 ...
+

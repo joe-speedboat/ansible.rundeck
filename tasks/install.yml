@@ -1,11 +1,9 @@
 ---
 # Redhat based OS
-
 - name: Install MariaDB role and setup
   include_role:
     name: joe-speedboat.mariadb
   vars:
-    mariadb_db_user: '{{ mariadb_db_name }}'
     mariadb_secure_installation: yes
     mariadb_databases:
       - name: '{{ mariadb_db_name }}'
@@ -17,7 +15,6 @@
         privs:
         - "{{ mariadb_db_name }}.*:ALL"
         append_privs: no
-
 
 - name: Install Java JDK
   yum:
@@ -37,3 +34,4 @@
   become: yes
   notify:
     - start rundeck
+

@@ -3,7 +3,7 @@
 rundeck_protocol: "https"
 
 # fqdn that get accessed by web browser
-rundeck_domain: "{{ansible_host}}"
+rundeck_domain: "{{ansible_fqdn}}"
 
 # rundeck web admin
 rundeck_admin_pass: 'secret'
@@ -24,7 +24,6 @@ mariadb_db_name: 'rundeck'
 mariadb_db_user: 'rundeck'
 mariadb_root_password: 'p0st1t'
 mariadb_user_password: '.rundeck.'
-
 
 # jdbc for mariadb connector
 jdbc_version: '2.2.0'
