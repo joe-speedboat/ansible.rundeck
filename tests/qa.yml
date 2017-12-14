@@ -1,0 +1,32 @@
+---
+# tests/install_rundeck.yml
+- hosts: vm06
+  roles:
+  - role: joe-speedboat.rundeck
+  tasks:
+  - name: install firewalld
+    yum:
+      name: firewalld
+      state: present
+  - name: start firewalld
+    service:
+      name: firewalld
+      enabled: yes
+      state: started
+  - name: open http port on firewalld
+    firewalld:
+      service: http
+      permanent: true
+      state: enabled
+  - name: open https port on firewalld
+    firewalld:
+      service: https
+      permanent: true
+      state: enabled
+  - name: enable firewalld
+    service:
+      name: firewalld
+      enabled: yes
+      state: restarted
+...
+
