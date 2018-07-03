@@ -13,7 +13,7 @@ rundeck_plugins:
   - 'https://github.com/rundeck-plugins/rundeck-winrm-plugin/releases/download/v1.3.3/rundeck-winrm-plugin-1.3.3.jar'
   - 'https://github.com/ajrnz/rundeck-telegram-plugin/releases/download/v1.0.6/rundeck-telegram-plugin-1.0.6.jar'
   - 'https://github.com/ohioit/rundeck-http-plugin/releases/download/1.0.6/rundeck-http-plugin-1.0.6.jar'
-  - 'https://github.com/Batix/rundeck-ansible-plugin/releases/download/2.2.2/ansible-plugin-2.2.2.jar'
+  - 'https://github.com/Batix/rundeck-ansible-plugin/releases/download/2.4.0/ansible-plugin-2.4.0.jar'
 
 # generate ssh keys
 rundeck_generate_ssh: True
@@ -37,4 +37,4 @@ nginx_ssl_cert_host: "{{ rundeck_domain }}"
 nginx_ssl_cert_key: "{{ nginx_ssl_cert_host }}_key.pem"
 nginx_ssl_cert_crt: "{{ nginx_ssl_cert_host }}_crt.pem"
 nginx_ssl_cert_dhparam: "{{ nginx_ssl_cert_host }}_dhparam.pem"
-
+...

@@ -8,4 +8,4 @@ rundeck_group: rundeck
 nginx_packages_EL:
   - {package: "nginx"}
   - {package: "openssl"}
-
+...
