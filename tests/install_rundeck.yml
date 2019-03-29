@@ -6,7 +6,7 @@
   tasks:
   - yum: name=firewalld    
   - service: name=firewalld enabled=true state=started
-  - firewalld: service={{ item }} permanent=true state=enabled
+  - firewalld: service={{ item }} permanent=true immediate=true state=enabled
     with_items:
       - http
       - https
