@@ -26,7 +26,7 @@ mariadb_root_password: 'p0st1t'
 mariadb_user_password: '.rundeck.'
 
 # jdbc for mariadb connector
-jdbc_version: '2.2.0'
+jdbc_version: '2.4.0'
 jdbc_jar: 'mariadb-java-client-{{ jdbc_version }}.jar'
 jdbc_url: 'http://central.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/{{ jdbc_version }}/{{ jdbc_jar }}'
 

@@ -9,7 +9,7 @@
 
 - name: Rundeck - MySQL | download jdbc driver
   get_url: >
-    dest='/var/lib/rundeck/exp/webapp/WEB-INF/lib/{{ jdbc_jar }}'
+    dest='/var/lib/rundeck/lib/{{ jdbc_jar }}'
     url='{{ jdbc_url }}'
 
 - name: Rundeck - MySQL | update database connection in configuration

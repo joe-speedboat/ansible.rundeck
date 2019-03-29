@@ -26,6 +26,14 @@
   notify:
     - restart rundeck
 
+- name: Rundeck | Ensure server url is configured (rundeck-config.properties)
+  lineinfile: >
+    dest=/etc/rundeck/rundeck-config.properties
+    regexp="^server.useForwardHeaders="
+    line="server.useForwardHeaders=true"
+  notify:
+    - restart rundeck
+
 - name: Rundeck | Ensure server url is configured (framework.properties)
   lineinfile: >
     dest=/etc/rundeck/framework.properties
