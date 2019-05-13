@@ -1,6 +1,6 @@
 ---
 # tests/install_rundeck.yml
-- hosts: vm21
+- hosts: vm11
   roles:
   - role: joe-speedboat.ansible_rundeck
   tasks:
