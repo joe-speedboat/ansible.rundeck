@@ -16,7 +16,7 @@ This is a role to install Rundeck with Nginx ssl reverse proxy and mariadb on si
 `ansible-playbook tests/install_rundeck.yml`
 
 ## Dependencies
-* `role`: uniQconsulting.mariadb
+* `role`: uniqconsulting.mariadb
 
 ## License
 https://opensource.org/licenses/LGPL-3.0    
