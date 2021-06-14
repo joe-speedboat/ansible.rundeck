@@ -1,7 +1,7 @@
 ---
 
 - name: Install nginx packages
-  yum:
+  dnf:
     name: '{{ item.package }}'
     state: present
   with_items: "{{ nginx_packages_EL }}"
@@ -12,6 +12,11 @@
     state: started
     enabled: yes
 
+- name: ensure SELinux boolean is set for nginx reverse proxy
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
 
 - block:
   - name: copy selfsigned ssl cert creator script

@@ -4,37 +4,74 @@
 export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin
 umask 077
 
-CDIR="{{nginx_ssl_cert_dir}}"
-CDAYS="{{nginx_ssl_cert_days}}"
-HNAME="{{nginx_ssl_cert_host}}"
-KEY="$CDIR/{{nginx_ssl_cert_key}}"
-CRT="$CDIR/{{nginx_ssl_cert_crt}}"
-DHPARAM="$CDIR/{{ nginx_ssl_cert_dhparam }}"
+# cert fqdn
+HOST="{{ nginx_ssl_cert_host }}"
+# ca dir
+CA_DIR="/etc/MySsl"
+# cert dir
+BASE_DIR="$CA_DIR/$HOST"
+# certificate details
+CA_SUBJ='/C=XX/O=LAB-CA/CN=LabAuthority'
+CERT_SUBJ='/C=XX/ST=XX/L=City/O=Lab'
+# cert validity days
+DAYS="{{ nginx_ssl_cert_days }}"
+# ca keylen
+CA_KEYLEN=4096
+# cert keylen
+PRIV_KEYLEN=2048
+DHPARAM="{{ nginx_ssl_cert_dir }}/{{ nginx_ssl_cert_dhparam }}"
+KEY_COPY="{{ nginx_ssl_cert_dir }}/{{ nginx_ssl_cert_key }}"
+CERT_COPY="{{ nginx_ssl_cert_dir }}/{{ nginx_ssl_cert_crt }}"
+CA_CHAIN_COPY="{{ nginx_ssl_cert_dir }}/{{ nginx_ssl_cert_ca_chain }}"
+COPY_OWNER="root:nginx"
 
+mkdir -p ${CA_DIR}/ca
+mkdir -p ${BASE_DIR}/{servers,tmp}
 
-
-if [ -f $CRT -o -f $KEY ]; then
-   exit 0
+cd "${BASE_DIR}" || exit 1
+if [ -f "${CA_DIR}/ca/root.key.pem" ]
+then
+   echo "------ Skip creation of ${CA_DIR}/ca/root.key.pem, it is already present"
+else
+   echo "------ create root key"
+   openssl genrsa -out "${CA_DIR}/ca/root.key.pem" $CA_KEYLEN
+fi
+if [ -f "${CA_DIR}/ca/root.crt.pem" ]
+then
+   echo "------ Skip creation of ${CA_DIR}/ca/root.crt.pem, it is already present"
+else
+   echo "------ create intermediate cert"
+   openssl req -x509 -new -nodes -key "${CA_DIR}/ca/root.key.pem" -days $DAYS -out "${CA_DIR}/ca/root.crt.pem" -subj "$CA_SUBJ"
+fi
+if [ -f "${BASE_DIR}/servers/${HOST}_privkey.pem" ]
+then
+   echo "------ ERROR: ${BASE_DIR}/servers/${HOST}_privkey.pem this file should not exist, remove this files first:"
+   ls -l ${BASE_DIR}/servers/${HOST}_*
+else
+   echo "------ create server private key"
+   openssl genrsa -out "${BASE_DIR}/servers/${HOST}_privkey.pem" $PRIV_KEYLEN 
+   echo "------ create server csr"
+   openssl req -key "${BASE_DIR}/servers/${HOST}_privkey.pem" -new -sha256 -out "tmp/${HOST}.csr.pem" -subj "$CERT_SUBJ/CN=${HOST}"
+   echo "sign csr"
+   openssl x509 -req -in "tmp/${HOST}.csr.pem" -CA "${CA_DIR}/ca/root.crt.pem" -CAkey "${CA_DIR}/ca/root.key.pem" -CAcreateserial -out "${BASE_DIR}/servers/${HOST}_cert.pem" -days $DAYS
+   echo "------ prepare cert chain"
+   cat "${CA_DIR}/ca/root.crt.pem" > "${BASE_DIR}/servers/${HOST}_ca_chain.pem"
+   echo " ------ SHOW RESULTS"
+   find "$BASE_DIR"
+   echo "------ copy cert in place"
+   cp -v "${BASE_DIR}/servers/${HOST}_privkey.pem" "$KEY_COPY" ; chmod 640 "$KEY_COPY"
+   cp -v "${BASE_DIR}/servers/${HOST}_cert.pem" "$CERT_COPY" ; chmod 644 "$CERT_COPY" 
+   cp -v "${BASE_DIR}/servers/${HOST}_ca_chain.pem" "$CA_CHAIN_COPY" ; chmod 644 "$CA_CHAIN_COPY"
+   chown $COPY_OWNER "$KEY_COPY" "$CERT_COPY" "$CA_CHAIN_COPY" 
+   echo "--- done"
 fi
 
-test -d $CDIR || mkdir -m 0700 -p $CDIR
-
-openssl genrsa -rand /proc/apm:/proc/cpuinfo:/proc/dma:/proc/filesystems:/proc/interrupts:/proc/ioports:/proc/pci:/proc/rtc:/proc/uptime 2048 > $KEY 2> /dev/null
-openssl dhparam -out $DHPARAM 2048
-
-FQDN=$HNAME
-[ "x$HNAME" = "x" ] && FQDN=localhost.localdomain
-
-cat << EOF | openssl req -new -key $KEY \
-         -x509 -sha256 -days $CDAYS -set_serial $RANDOM -extensions v3_req \
-         -out $CRT 2>/dev/null
---
-SomeState
-SomeCity
-Ansible Cert
-Self Signed
-${FQDN}
-root@${FQDN}
-EOF
-
-chown nginx.root $CRT $KEY
+if [ -f "$DHPARAM" ]
+then
+   echo "------ Skip creation of $DHPARAM, it is already present"
+else
+   echo "------ create dhparm file"
+   openssl dhparam -out "$DHPARAM" 2048
+   chmod 640 "$DHPARAM"
+   chown $COPY_OWNER "$DHPARAM"
+fi

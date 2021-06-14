@@ -2,7 +2,7 @@
 # Redhat based OS
 - name: Install MariaDB role and setup
   include_role:
-    name: uniqconsulting.mariadb
+    name: joe-speedboat.mariadb
   vars:
     mariadb_secure_installation: yes
     mariadb_databases:
@@ -17,18 +17,18 @@
         append_privs: no
 
 - name: Install Java JDK
-  yum:
+  dnf:
     name: java-1.8.0-openjdk
     state: installed
 
 - name: Rundeck | add rundeck repo
-  yum:
+  dnf:
     name: http://repo.rundeck.org/latest.rpm
     state: present
-  become: yes
+    disable_gpg_check: true
 
 - name: Rundeck | get rundeck installed
-  yum:
+  dnf:
     name: rundeck
     state: present
   become: yes

@@ -10,25 +10,25 @@ rundeck_admin_pass: 'secret'
 
 # plugins to download and install
 rundeck_plugins:
-  - 'https://github.com/rundeck-plugins/rundeck-winrm-plugin/releases/download/v1.3.3/rundeck-winrm-plugin-1.3.3.jar'
-  - 'https://github.com/ajrnz/rundeck-telegram-plugin/releases/download/v1.0.6/rundeck-telegram-plugin-1.0.6.jar'
+  - 'https://github.com/rundeck-plugins/rundeck-winrm-plugin/releases/download/v1.3.8/rundeck-winrm-plugin-1.3.8.jar'
+  - 'https://github.com/ajrnz/rundeck-telegram-plugin/releases/download/v1.1.3/rundeck-telegram-plugin-1.1.3.jar'
   - 'https://github.com/ohioit/rundeck-http-plugin/releases/download/1.0.6/rundeck-http-plugin-1.0.6.jar'
-  - 'https://github.com/Batix/rundeck-ansible-plugin/releases/download/2.4.0/ansible-plugin-2.4.0.jar'
+  - 'https://github.com/Batix/rundeck-ansible-plugin/releases/download/3.1.1/ansible-plugin-3.1.1.jar'
 
 # generate ssh keys
 rundeck_generate_ssh: True
 
 # mariadb settings
-mariadb_db_host: 'localhost'
+mariadb_db_host: '127.0.0.1'
 mariadb_db_name: 'rundeck'
 mariadb_db_user: 'rundeck'
 mariadb_root_password: 'p0st1t'
 mariadb_user_password: '.rundeck.'
 
 # jdbc for mariadb connector
-jdbc_version: '2.4.1'
+jdbc_version: '2.7.3'
 jdbc_jar: 'mariadb-java-client-{{ jdbc_version }}.jar'
-jdbc_url: 'http://central.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/{{ jdbc_version }}/{{ jdbc_jar }}'
+jdbc_url: 'https://downloads.mariadb.com/Connectors/java/connector-java-{{ jdbc_version }}/{{ jdbc_jar }}'
 
 # we use nginx reverse proxy
 nginx_ssl_cert_dir: /etc/nginx
@@ -36,5 +36,7 @@ nginx_ssl_cert_days: 3650
 nginx_ssl_cert_host: "{{ rundeck_domain }}"
 nginx_ssl_cert_key: "{{ nginx_ssl_cert_host }}_key.pem"
 nginx_ssl_cert_crt: "{{ nginx_ssl_cert_host }}_crt.pem"
+nginx_ssl_cert_ca_chain: "{{ nginx_ssl_cert_host }}_ca_chain.pem"
 nginx_ssl_cert_dhparam: "{{ nginx_ssl_cert_host }}_dhparam.pem"
+
 ...

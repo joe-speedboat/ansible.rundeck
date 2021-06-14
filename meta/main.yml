@@ -3,12 +3,13 @@ galaxy_info:
   author: Chris Ruettimann
   company: Private
   description: installation and configuration of rundeck
-  min_ansible_version: 2.2
+  role_name: rundeck
+  min_ansible_version: 2.9
   license: GPLv3
   platforms:
   - name: EL
     versions:
-    - 7
+    - 8
   categories:
   - system
 
