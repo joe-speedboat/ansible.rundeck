@@ -12,6 +12,11 @@
     state: started
     enabled: yes
 
+- name: Install selinux python dep
+  dnf:
+    name: python3-libsemanage
+    state: present
+
 - name: ensure SELinux boolean is set for nginx reverse proxy
   seboolean:
     name: httpd_can_network_connect
