@@ -1,6 +1,6 @@
 ---
 # Redhat based OS
-- name: Install MariaDB role and setup
+- name: mariadb | Install MariaDB role and setup
   include_role:
     name: joe-speedboat.mariadb
   vars:
@@ -16,13 +16,13 @@
         - "{{ mariadb_db_name }}.*:ALL"
         append_privs: no
 
-- name: install repos
+- name: rundeck | install repos
   dnf: 
     name: "{{ rundeck_repos_EL8 }}"
     state: present
     disable_gpg_check: True
 
-- name: Install packages
+- name: rundeck | install packages
   dnf:
     name: "{{ rundeck_packages_EL8 }}"
     state: present

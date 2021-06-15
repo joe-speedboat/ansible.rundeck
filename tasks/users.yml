@@ -1,6 +1,5 @@
 - name: Rundeck | encode users password
   shell: "echo -n {{ rundeck_admin_pass }} | md5sum | cut -d' '  -f1"
-  become: True
   register: rundeck_encoded_admin_pass
 
 - name: "Rundeck | update basic security to have users"
