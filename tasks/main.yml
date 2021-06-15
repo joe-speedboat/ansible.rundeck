@@ -19,26 +19,26 @@
     mode: 0755
 
 - name: Rundeck | Ensure server url is configured (rundeck-config.properties)
-  lineinfile: >
-    dest=/etc/rundeck/rundeck-config.properties
-    regexp="^grails.serverURL="
-    line="grails.serverURL={{ rundeck_protocol }}://{{ rundeck_domain }}"
+  lineinfile:
+    dest: /etc/rundeck/rundeck-config.properties
+    regexp: "^grails.serverURL="
+    line: "grails.serverURL={{ rundeck_protocol }}://{{ rundeck_domain }}"
   notify:
     - restart rundeck
 
 - name: Rundeck | Ensure server url is configured (rundeck-config.properties)
-  lineinfile: >
-    dest=/etc/rundeck/rundeck-config.properties
-    regexp="^server.useForwardHeaders="
-    line="server.useForwardHeaders=true"
+  lineinfile:
+    dest: /etc/rundeck/rundeck-config.properties
+    regexp: "^server.useForwardHeaders="
+    line: "server.useForwardHeaders=true"
   notify:
     - restart rundeck
 
 - name: Rundeck | Ensure server url is configured (framework.properties)
-  lineinfile: >
-    dest=/etc/rundeck/framework.properties
-    regexp="^framework\.server\.url\s*\=s*"
-    line="framework.server.url = {{ rundeck_protocol }}://{{ rundeck_domain }}"
+  lineinfile:
+    dest: /etc/rundeck/framework.properties
+    regexp: "^framework\.server\.url\s*\=s*"
+    line: "framework.server.url = {{ rundeck_protocol }}://{{ rundeck_domain }}"
   notify:
     - restart rundeck
 
@@ -50,9 +50,9 @@
 
 # extras
 - name: download rundeck plugins
-  get_url: >
-    dest=/var/lib/rundeck/libext/{{ item.split('/')|last }}
-    url={{ item }}
+  get_url:
+    dest: /var/lib/rundeck/libext/{{ item.split('/')|last }}
+    url: {{ item }}
   with_items: "{{ rundeck_plugins }}"
   notify:
     - restart rundeck
