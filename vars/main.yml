@@ -5,7 +5,13 @@ rundeck_conf_dir: /etc/rundeck
 rundeck_user: rundeck
 rundeck_group: rundeck
 
-nginx_packages_EL:
-  - {package: "nginx"}
-  - {package: "openssl"}
+rundeck_packages_EL8:
+  - java-1.8.0-openjdk
+  - nginx
+  - openssl
+  - python3-libsemanage
+  
+rundeck_repos_EL8:
+  - http://repo.rundeck.org/latest.rpm
+  - epel-release
 ...

@@ -1,9 +1,18 @@
 ---
 - name: start rundeck
-  service: name=rundeckd state=started enabled=true
+  systemd: 
+    name: rundeckd 
+    state: started 
+    enabled: true
 
 - name: restart rundeck
-  service: name=rundeckd state=restarted enabled=true
+  service: 
+    name: rundeckd 
+    state: restarted 
+    enabled: true
 
 - name: restart nginx
-  service: name=nginx state=restarted enabled=true
+  service: 
+    name: nginx 
+    state: restarted 
+    enabled: true

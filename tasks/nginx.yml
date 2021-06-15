@@ -1,21 +1,10 @@
 ---
 
-- name: Install nginx packages
-  dnf:
-    name: '{{ item.package }}'
-    state: present
-  with_items: "{{ nginx_packages_EL }}"
-
 - name: enable nginx
-  service: 
+  systemd: 
     name: nginx 
     state: started
     enabled: yes
-
-- name: Install selinux python dep
-  dnf:
-    name: python3-libsemanage
-    state: present
 
 - name: ensure SELinux boolean is set for nginx reverse proxy
   seboolean:

@@ -12,5 +12,7 @@ galaxy_info:
     - 8
   categories:
   - system
+  - automation
+  - ansible
 
 dependencies: []

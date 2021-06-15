@@ -16,22 +16,16 @@
         - "{{ mariadb_db_name }}.*:ALL"
         append_privs: no
 
-- name: Install Java JDK
-  dnf:
-    name: java-1.8.0-openjdk
-    state: installed
-
-- name: Rundeck | add rundeck repo
-  dnf:
-    name: http://repo.rundeck.org/latest.rpm
+- name: install repos
+  dnf: 
+    name: "{{ rundeck_repos_EL8 }}"
     state: present
-    disable_gpg_check: true
+    disable_gpg_check: True
 
-- name: Rundeck | get rundeck installed
+- name: Install packages
   dnf:
-    name: rundeck
+    name: "{{ rundeck_packages_EL8 }}"
     state: present
-  become: yes
   notify:
     - start rundeck
 ...
