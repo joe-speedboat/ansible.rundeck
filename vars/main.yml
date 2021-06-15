@@ -10,6 +10,10 @@ rundeck_packages_EL8:
   - nginx
   - openssl
   - python3-libsemanage
+  - rundeck
+  - rundeck-cli
+  - rundeck-config
+
   
 rundeck_repos_EL8:
   - http://repo.rundeck.org/latest.rpm

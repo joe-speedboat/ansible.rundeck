@@ -6,6 +6,7 @@
     owner: rundeck
     group: rundeck
     mode: 0700
+  become: True
 
 # ssh key
 - name: rundeck | generate rundecks ssh key
@@ -14,3 +15,4 @@
     generate_ssh_key: yes
     ssh_key_file: /var/lib/rundeck/.ssh/id_rsa
     ssh_key_type: rsa
+  become: True

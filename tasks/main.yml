@@ -21,24 +21,24 @@
 - name: rundeck | ensure server url is configured (rundeck-config.properties)
   lineinfile:
     dest: /etc/rundeck/rundeck-config.properties
-    regexp: "^grails.serverURL="
-    line: "grails.serverURL={{ rundeck_protocol }}://{{ rundeck_domain }}"
+    regexp: '^grails.serverURL='
+    line: 'grails.serverURL={{ rundeck_protocol }}://{{ rundeck_domain }}'
   notify:
     - restart rundeck
 
 - name: rundeck | ensure server url is configured (rundeck-config.properties)
   lineinfile:
     dest: /etc/rundeck/rundeck-config.properties
-    regexp: "^server.useForwardHeaders="
-    line: "server.useForwardHeaders=true"
+    regexp: '^server.useForwardHeaders='
+    line: 'server.useForwardHeaders=true'
   notify:
     - restart rundeck
 
 - name: rundeck | ensure server url is configured (framework.properties)
   lineinfile:
     dest: /etc/rundeck/framework.properties
-    regexp: "^framework\.server\.url\s*\=s*"
-    line: "framework.server.url = {{ rundeck_protocol }}://{{ rundeck_domain }}"
+    regexp: '^framework\.server\.url\s*\=s*'
+    line: 'framework.server.url = {{ rundeck_protocol }}://{{ rundeck_domain }}'
   notify:
     - restart rundeck
 
@@ -52,14 +52,14 @@
 - name: rundeck | download rundeck plugins
   get_url:
     dest: /var/lib/rundeck/libext/{{ item.split('/')|last }}
-    url: {{ item }}
-  with_items: "{{ rundeck_plugins }}"
+    url: '{{ item }}'
+  with_items: '{{ rundeck_plugins }}'
   notify:
     - restart rundeck
 
 - name: rundeck | ssh key generation for rundeck user
   include_tasks: ssh.yml
-  when: rundeck_generate_ssh == True
+  when: rundeck_generate_ssh
 
 - name: rundeck | install and configure nginx reverse proxy
   include_tasks: nginx.yml
