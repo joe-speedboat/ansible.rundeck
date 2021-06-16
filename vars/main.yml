@@ -13,9 +13,14 @@ rundeck_packages_EL8:
   - rundeck
   - rundeck-cli
   - rundeck-config
-
   
 rundeck_repos_EL8:
   - http://repo.rundeck.org/latest.rpm
   - epel-release
+
+# jdbc for mariadb connector
+jdbc_version: '2.7.3'
+jdbc_jar: 'mariadb-java-client-{{ jdbc_version }}.jar'
+jdbc_url: 'https://downloads.mariadb.com/Connectors/java/connector-java-{{ jdbc_version }}/{{ jdbc_jar }}'
+
 ...

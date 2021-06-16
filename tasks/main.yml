@@ -1,65 +1,19 @@
 ---
 - name: rundeck | install base software
-  include_tasks: install.yml
+  include_tasks: 10_install.yml
 
-#  create groups and adjust user
-- name: rundeck | ensure home directory has correct permissions
-  file:
-    path: /var/lib/rundeck
-    state: directory
-    owner: rundeck
-    group: rundeck
-    mode: 0755
-
-- name: rundeck | ensure tmp directory has correct permissions
-  file:
-    path: /tmp/rundeck
-    state: directory
-    owner: rundeck
-    mode: 0755
-
-- name: rundeck | ensure server url is configured (rundeck-config.properties)
-  lineinfile:
-    dest: /etc/rundeck/rundeck-config.properties
-    regexp: '^grails.serverURL='
-    line: 'grails.serverURL={{ rundeck_protocol }}://{{ rundeck_domain }}'
-  notify:
-    - restart rundeck
-
-- name: rundeck | ensure server url is configured (rundeck-config.properties)
-  lineinfile:
-    dest: /etc/rundeck/rundeck-config.properties
-    regexp: '^server.useForwardHeaders='
-    line: 'server.useForwardHeaders=true'
-  notify:
-    - restart rundeck
-
-- name: rundeck | ensure server url is configured (framework.properties)
-  lineinfile:
-    dest: /etc/rundeck/framework.properties
-    regexp: '^framework\.server\.url\s*\=s*'
-    line: 'framework.server.url = {{ rundeck_protocol }}://{{ rundeck_domain }}'
-  notify:
-    - restart rundeck
+- name: rundeck | configure config files
+  include_tasks: 20_configure.yml
 
 - name: rundeck | configure rundeck mariadb client
-  include_tasks: mysql_client.yml
+  include_tasks: 30_mysql_client.yml
 
 - name: rundeck | user management
-  include_tasks: users.yml
-
-# extras
-- name: rundeck | download rundeck plugins
-  get_url:
-    dest: /var/lib/rundeck/libext/{{ item.split('/')|last }}
-    url: '{{ item }}'
-  with_items: '{{ rundeck_plugins }}'
-  notify:
-    - restart rundeck
+  include_tasks: 40_users.yml
 
 - name: rundeck | ssh key generation for rundeck user
-  include_tasks: ssh.yml
+  include_tasks: 50_ssh.yml
   when: rundeck_generate_ssh
 
 - name: rundeck | install and configure nginx reverse proxy
-  include_tasks: nginx.yml
+  include_tasks: 60_nginx.yml
