@@ -2,7 +2,7 @@
 This is a role to install Rundeck with Nginx ssl reverse proxy and mariadb on single host
 
 ## Execution Requirements
-- Tested with CentOS7
+- Tested with Alma Linux 8
 
 ## Role Variables
 
