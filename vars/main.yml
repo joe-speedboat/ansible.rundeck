@@ -15,8 +15,9 @@ rundeck_packages_EL8:
   - rundeck-config
   
 rundeck_repos_EL8:
-  - http://repo.rundeck.org/latest.rpm
   - epel-release
+
+rundeck_repo_setup_script_EL8: "https://raw.githubusercontent.com/rundeck/packaging/main/scripts/rpm-setup.sh"
 
 # jdbc for mariadb connector
 jdbc_version: '2.7.3'

@@ -22,6 +22,20 @@
     state: present
     disable_gpg_check: True
 
+- name: fetch Rundeck community repo setup script
+  get_url: 
+    url: "{{ rundeck_repo_setup_script_EL8 }}"
+    dest: /tmp/setup_rundeck_repo.sh
+    mode: 0700
+
+- name: Execute repo installer
+  shell: /tmp/setup_rundeck_repo.sh rundeck
+
+- name: Remove the repo installer
+  file: 
+    path: /tmp/setup_rundeck_repo.sh
+    state: absent
+
 - name: rundeck | install packages
   dnf:
     name: "{{ rundeck_packages_EL8 }}"

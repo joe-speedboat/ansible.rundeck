@@ -44,5 +44,6 @@
     dest: /var/lib/rundeck/libext/{{ item.split('/')|last }}
     url: '{{ item }}'
   with_items: '{{ rundeck_plugins }}'
+  when: rundeck_plugins is iterable
   notify:
     - restart rundeck

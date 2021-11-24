@@ -10,9 +10,6 @@ rundeck_admin_pass: 'secret'
 
 # plugins to download and install
 rundeck_plugins:
-  - 'https://github.com/rundeck-plugins/rundeck-winrm-plugin/releases/download/v1.3.8/rundeck-winrm-plugin-1.3.8.jar'
-  - 'https://github.com/ajrnz/rundeck-telegram-plugin/releases/download/v1.1.3/rundeck-telegram-plugin-1.1.3.jar'
-  - 'https://github.com/ohioit/rundeck-http-plugin/releases/download/1.0.6/rundeck-http-plugin-1.0.6.jar'
   - 'https://github.com/Batix/rundeck-ansible-plugin/releases/download/3.1.1/ansible-plugin-3.1.1.jar'
 
 # generate ssh keys
