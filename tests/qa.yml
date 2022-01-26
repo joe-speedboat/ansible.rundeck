@@ -1,6 +1,6 @@
 ---
 # tests/install_rundeck.yml
-- hosts: vm06
+- hosts: test03
   roles:
   - role: joe-speedboat.rundeck
   tasks:
