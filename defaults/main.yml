@@ -9,8 +9,8 @@ rundeck_domain: "{{ansible_fqdn}}"
 rundeck_admin_pass: 'secret'
 
 # plugins to download and install
-rundeck_plugins:
-  - 'https://github.com/Batix/rundeck-ansible-plugin/releases/download/3.1.1/ansible-plugin-3.1.1.jar'
+rundeck_plugins: []
+#  - 'https://github.com/Batix/rundeck-ansible-plugin/releases/download/3.1.1/ansible-plugin-3.1.1.jar'
 
 # generate ssh keys
 rundeck_generate_ssh: True
