@@ -15,5 +15,9 @@
   include_tasks: 50_ssh.yml
   when: rundeck_generate_ssh
 
+- name: rundeck | install and configure ansible
+  include_tasks: 60_ansible.yml
+  when: rundeck_install_ansible
+
 - name: rundeck | install and configure nginx reverse proxy
-  include_tasks: 60_nginx.yml
+  include_tasks: 70_nginx.yml

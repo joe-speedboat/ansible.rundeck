@@ -1,6 +1,6 @@
 ---
-# tests/install_rundeck.yml
-- hosts: test03
+# tests/qa.yml
+- hosts: test01
   roles:
   - role: joe-speedboat.rundeck
   tasks:
@@ -13,11 +13,6 @@
       name: firewalld
       enabled: yes
       state: started
-  - name: open http port on firewalld
-    firewalld:
-      service: http
-      permanent: true
-      state: enabled
   - name: open https port on firewalld
     firewalld:
       service: https
