@@ -2,7 +2,7 @@
 - name: rundeck - mariadb | make server lib directory
   file:
     group: rundeck
-    mode: 0655
+    mode: 0755
     owner: rundeck
     path: /var/lib/rundeck/lib
     state: directory
