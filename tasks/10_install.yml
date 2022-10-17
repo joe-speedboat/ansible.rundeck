@@ -22,19 +22,13 @@
     state: present
     disable_gpg_check: True
 
-- name: fetch Rundeck community repo setup script
-  get_url: 
-    url: "{{ rundeck_repo_setup_script_EL8 }}"
-    dest: /usr/local/sbin/setup_rundeck_repo.sh
-    mode: 0700
-
-- name: Execute repo installer
-  shell: /usr/local/sbin/setup_rundeck_repo.sh rundeck
-
-- name: Remove the repo installer
-  file: 
-    path: /usr/local/sbin/setup_rundeck_repo.sh
-    state: absent
+- name: Create Rundeck Repo
+  template:
+    src: rundeck.repo.j2
+    dest: /etc/yum.repos.d/rundeck.repo
+    owner: root
+    group: root
+    mode: 0644
 
 - name: rundeck | install packages
   dnf:
