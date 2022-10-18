@@ -1,12 +1,11 @@
 ---
-# The following may be stable overtime
 rundeck_home_dir: /var/lib/rundeck
 rundeck_conf_dir: /etc/rundeck
 rundeck_user: rundeck
 rundeck_group: rundeck
 
-rundeck_packages_EL8:
-  - java-1.8.0-openjdk
+rundeck_packages_EL:
+  - java-11-openjdk
   - nginx
   - openssl
   - python3-libsemanage
@@ -14,13 +13,6 @@ rundeck_packages_EL8:
   - rundeck-cli
   - rundeck-config
   
-rundeck_repos_EL8:
-  - epel-release
-
-rundeck_repo_setup_script_EL8: "https://raw.githubusercontent.com/rundeck/packaging/main/scripts/rpm-setup.sh"
-
-# jdbc for mariadb connector
-jdbc_version: '3.0.8'
 jdbc_jar: 'mariadb-java-client-{{ jdbc_version }}.jar'
 jdbc_url: 'https://downloads.mariadb.com/Connectors/java/connector-java-{{ jdbc_version }}/{{ jdbc_jar }}'
 

@@ -5,12 +5,14 @@ rundeck_protocol: "https"
 # fqdn that get accessed by web browser
 rundeck_domain: "{{ansible_fqdn}}"
 
-# rundeck web admin
+# rundeck web admin password
 rundeck_admin_pass: 'secret'
 
-# plugins to download and install
+# plugins to download and install, Ansible get installed by default, this is just an example
 rundeck_plugins: []
 # - 'https://github.com/Batix/rundeck-ansible-plugin/releases/download/3.2.2/ansible-plugin-3.2.2.jar'
+
+jdbc_version: '3.0.8'
 
 # generate ssh keys
 rundeck_generate_ssh: True

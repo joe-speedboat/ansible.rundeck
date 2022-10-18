@@ -1,22 +1,23 @@
 # Ansible Rundeck Role
 This is a role to install Rundeck with Nginx ssl reverse proxy and mariadb on single host
 
-## Execution Requirements
-- Tested with Alma Linux 8
+## Ansible env
+* Ansible Core: 2.13
+
+## Tested OS
+- Alma Linux 8
+- Alma Linux 9
 
 ## Role Variables
-
-### The following variables may be overridden:
-* `rundeck_domain`: fqdn that get accessed by web browser
-* `rundeck_admin_pass`: rundeck web admin password
-* `mariadb_root_password`: MariaDB root password
-* `mariadb_user_password`: rundeck DB user password
+Variables are documented or self speaking by its names.   
+Look into defaults folder to get an overview of your needs.   
+It is strongly recomended to change sensitive variables such as passwords.   
 
 ## How to use
 `ansible-playbook tests/install_rundeck.yml`
 
 ## Dependencies
-* `role`: joe-speedboat.mariadb
+* `ansible-galaxy role install -r roles/requirements.yml`
 
 ## License
 https://opensource.org/licenses/LGPL-3.0    

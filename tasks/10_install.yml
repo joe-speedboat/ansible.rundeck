@@ -16,12 +16,6 @@
         - "{{ mariadb_db_name }}.*:ALL"
         append_privs: no
 
-- name: rundeck | install repos
-  dnf: 
-    name: "{{ rundeck_repos_EL8 }}"
-    state: present
-    disable_gpg_check: True
-
 - name: Create Rundeck Repo
   template:
     src: rundeck.repo.j2
@@ -32,7 +26,7 @@
 
 - name: rundeck | install packages
   dnf:
-    name: "{{ rundeck_packages_EL8 }}"
+    name: "{{ rundeck_packages_EL }}"
     state: present
   notify:
     - start rundeck
