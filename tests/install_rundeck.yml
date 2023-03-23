@@ -1,13 +1,10 @@
 ---
-- hosts: test-rundeck1
+- hosts: test-rocky*
   roles:
   - role: joe-speedboat.rundeck
   tasks:
   - yum: name=firewalld    
   - service: name=firewalld enabled=true state=started
-  - firewalld: service={{ item }} permanent=true immediate=true state=enabled
-    with_items:
-      - http
-      - https
+  - firewalld: service=https permanent=true immediate=true state=enabled
     
 ...

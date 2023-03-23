@@ -9,7 +9,7 @@
       - name: '{{ mariadb_db_name }}'
     mariadb_users_create:
       - name: '{{ mariadb_db_user }}'
-        hosts:
+        hosts: 
         - '{{ mariadb_db_host }}'
         password: "{{ mariadb_user_password }}"
         privs:
