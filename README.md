@@ -2,11 +2,11 @@
 This is a role to install Rundeck with Nginx ssl reverse proxy and mariadb on single host
 
 ## Ansible env
-* Ansible Core: 2.13
+* Ansible Core: 2.11
 
 ## Tested OS
-- Alma Linux 8
-- Alma Linux 9
+- Rocky Linux 9
+- Rocky Linux 8
 
 ## Role Variables
 Variables are documented or self speaking by its names.   
