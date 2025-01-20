@@ -11,7 +11,7 @@ galaxy_info:
     versions:
     - 8
     - 9
-  categories:
+galaxy_tags:
   - system
   - automation
   - ansible
