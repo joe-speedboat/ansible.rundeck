@@ -10,9 +10,9 @@ rundeck_admin_pass: 'secret'
 
 # plugins to download and install, Ansible get installed by default, this is just an example
 rundeck_plugins: []
-# - 'https://github.com/rundeck-plugins/ansible-plugin/releases/download/v4.0.4/ansible-plugin-4.0.4.jar'
+# - 'https://github.com/rundeck-plugins/ansible-plugin/releases/download/v4.0.7/ansible-plugin-4.0.7.jar'
 
-jdbc_version: '3.4.1'
+jdbc_version: '3.5.1'
 
 # generate ssh keys
 rundeck_generate_ssh: True

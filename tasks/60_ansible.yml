@@ -8,16 +8,4 @@
 - name: ansible | execute the installer
   shell: /usr/local/sbin/ansible_setup_local.sh
 
-- name: ansible | remove the installer
-  file: 
-    path: ansible | remove the Ansible Installer
-    state: absent
-
-- name: ansible | prepare /etc/ansible for rundeck user
-  file: 
-    dest: /etc/ansible
-    owner: rundeck 
-    group: rundeck 
-    mode: u=rwX,g=rwX,o-rwX 
-    recurse: yes
 ...
