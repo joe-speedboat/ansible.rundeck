@@ -1,7 +1,7 @@
 ---
 - name: ansible | fetch install script
   get_url: 
-    url: https://raw.githubusercontent.com/joe-speedboat/ansible.template/master/tests/ansible_setup_local.sh
+    url: https://raw.githubusercontent.com/joe-speedboat/linux.scripts/refs/heads/master/ansible/ansible_setup_local.sh
     dest: /usr/local/sbin/ansible_setup_local.sh
     mode: 700
     
