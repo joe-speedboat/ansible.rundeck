@@ -9,9 +9,8 @@ galaxy_info:
   platforms:
   - name: EL
     versions:
-    - 8
     - 9
-galaxy_tags:
+  galaxy_tags:
   - system
   - automation
   - ansible
