@@ -5,7 +5,7 @@ rundeck_user: rundeck
 rundeck_group: rundeck
 
 rundeck_packages_EL:
-  - java-11-openjdk
+  - java-17-openjdk
   - nginx
   - openssl
   - python3-libsemanage

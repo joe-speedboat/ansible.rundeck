@@ -12,7 +12,7 @@ rundeck_admin_pass: 'secret'
 rundeck_plugins: []
 # - 'https://github.com/rundeck-plugins/ansible-plugin/releases/download/v4.0.7/ansible-plugin-4.0.7.jar'
 
-jdbc_version: '3.5.1'
+jdbc_version: '3.5.7'
 
 # generate ssh keys
 rundeck_generate_ssh: True
