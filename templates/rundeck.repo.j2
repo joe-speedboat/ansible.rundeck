@@ -2,9 +2,13 @@
 name=rundeck
 baseurl=https://packages.rundeck.com/pagerduty/rundeck/rpm_any/rpm_any/$basearch
 repo_gpgcheck=1
-gpgcheck=1
+gpgcheck=0
 enabled=1
-gpgkey=https://packages.rundeck.com/pagerduty/rundeck/gpgkey,https://docs.rundeck.com/keys/BUILD-GPG-KEY-20260105.key
+gpgkey=https://packages.rundeck.com/pagerduty/rundeck/gpgkey
+       https://packages.rundeck.com/pagerduty/rundeck/gpgkey/pagerduty-rundeck-87002736FCAD97EF.pub.gpg
+       https://packages.rundeck.com/pagerduty/rundeck/gpgkey/pagerduty-rundeck-CA9BF0743823AF9E.pub.gpg
+       https://packages.rundeck.com/pagerduty/rundeck/gpgkey/pagerduty-rundeck-67A3C4FA19F3D291.pub.gpg
+       https://raw.githubusercontent.com/rundeck/packaging/refs/heads/main/pubring.gpg
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
