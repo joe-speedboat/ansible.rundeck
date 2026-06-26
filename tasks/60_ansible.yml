@@ -1,11 +1,15 @@
 ---
 - name: ansible | fetch install script
-  get_url: 
-    url: https://raw.githubusercontent.com/joe-speedboat/linux.scripts/refs/heads/master/ansible/ansible_setup_local.sh
-    dest: /usr/local/sbin/ansible_setup_local.sh
-    mode: 700
-    
+  ansible.builtin.get_url:
+    url: "{{ rundeck_ansible_installer_url }}"
+    dest: "{{ rundeck_ansible_installer_path }}"
+    owner: root
+    group: root
+    mode: "0700"
+
 - name: ansible | execute the installer
-  shell: /usr/local/sbin/ansible_setup_local.sh
+  ansible.builtin.command: "sh {{ rundeck_ansible_installer_path }}"
+  args:
+    creates: "{{ rundeck_ansible_uv_marker }}"
 
 ...

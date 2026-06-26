@@ -14,6 +14,6 @@ rundeck_packages_EL:
   - rundeck-config
   
 jdbc_jar: 'mariadb-java-client-{{ jdbc_version }}.jar'
-jdbc_url: 'https://downloads.mariadb.com/Connectors/java/connector-java-{{ jdbc_version }}/{{ jdbc_jar }}'
+jdbc_url: 'https://repo.maven.apache.org/maven2/org/mariadb/jdbc/mariadb-java-client/{{ jdbc_version }}/{{ jdbc_jar }}'
 
 ...
