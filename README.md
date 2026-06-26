@@ -20,10 +20,19 @@ rundeck_install_ansible: true
 rundeck_ansible_installer_url: https://raw.githubusercontent.com/joe-speedboat/ansible.installer/refs/heads/main/ansible/ansible_setup.sh
 rundeck_ansible_installer_path: /usr/local/sbin/ansible_setup.sh
 rundeck_ansible_uv_marker: /opt/ansible/.ansible-uv-installer
+rundeck_ansible_install_user: rundeck
+rundeck_ansible_install_group: ansible
 ```
 
 Set `rundeck_install_ansible: false` if Ansible is managed by another control-node
 runtime on the same host.
+
+By default the role also manages local firewalld exposure for the nginx HTTPS
+reverse proxy:
+
+```yaml
+rundeck_manage_firewalld: true
+```
 
 ## How to use
 `ansible-playbook tests/install_rundeck.yml`
