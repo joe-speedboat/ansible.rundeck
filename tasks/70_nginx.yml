@@ -5,6 +5,21 @@
     state: started
     enabled: yes
 
+- name: nginx | enable firewalld for HTTPS exposure
+  ansible.builtin.systemd:
+    name: firewalld
+    state: started
+    enabled: yes
+  when: rundeck_manage_firewalld | bool
+
+- name: nginx | open HTTPS in firewalld
+  ansible.posix.firewalld:
+    service: https
+    permanent: true
+    immediate: true
+    state: enabled
+  when: rundeck_manage_firewalld | bool
+
 - name: nginx | ensure SELinux boolean is set for nginx reverse proxy
   seboolean:
     name: httpd_can_network_connect

@@ -22,6 +22,11 @@ rundeck_install_ansible: True
 rundeck_ansible_installer_url: 'https://raw.githubusercontent.com/joe-speedboat/ansible.installer/refs/heads/main/ansible/ansible_setup.sh'
 rundeck_ansible_installer_path: /usr/local/sbin/ansible_setup.sh
 rundeck_ansible_uv_marker: /opt/ansible/.ansible-uv-installer
+rundeck_ansible_install_user: "{{ rundeck_user }}"
+rundeck_ansible_install_group: ansible
+
+# Manage local firewall exposure for the nginx HTTPS reverse proxy.
+rundeck_manage_firewalld: True
 
 # mariadb settings
 mariadb_db_host: '127.0.0.1'

@@ -7,9 +7,26 @@
     group: root
     mode: "0700"
 
+- name: ansible | inspect installer marker
+  ansible.builtin.command: >-
+    grep -qx 'INSTALL_USER={{ rundeck_ansible_install_user }}' {{ rundeck_ansible_uv_marker }}
+  register: rundeck_ansible_marker_user
+  changed_when: false
+  failed_when: false
+
 - name: ansible | execute the installer
   ansible.builtin.command: "sh {{ rundeck_ansible_installer_path }}"
-  args:
-    creates: "{{ rundeck_ansible_uv_marker }}"
+  environment:
+    SCOPE: system
+    INSTALL_USER: "{{ rundeck_ansible_install_user }}"
+    INSTALL_GROUP: "{{ rundeck_ansible_install_group }}"
+  when: rundeck_ansible_marker_user.rc != 0
+
+- name: ansible | ensure rundeck can access the system Ansible runtime
+  ansible.builtin.user:
+    name: "{{ rundeck_ansible_install_user }}"
+    groups: "{{ rundeck_ansible_install_group }}"
+    append: true
+  notify: restart rundeck
 
 ...

@@ -6,6 +6,7 @@ rundeck_group: rundeck
 
 rundeck_packages_EL:
   - java-17-openjdk
+  - firewalld
   - nginx
   - openssl
   - python3-libsemanage
