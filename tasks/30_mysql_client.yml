@@ -11,6 +11,11 @@
   get_url:
     dest: '/var/lib/rundeck/lib/{{ jdbc_jar }}'
     url: '{{ jdbc_url }}'
+    timeout: 60
+  register: rundeck_jdbc_download
+  retries: 3
+  delay: 5
+  until: rundeck_jdbc_download is succeeded
 
 - name: rundeck - mariadb | update database connection in configuration
   lineinfile:

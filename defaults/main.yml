@@ -19,6 +19,9 @@ rundeck_generate_ssh: True
 
 # Install and configure Ansible for rundeck user
 rundeck_install_ansible: True
+rundeck_ansible_installer_url: 'https://raw.githubusercontent.com/joe-speedboat/ansible.installer/refs/heads/main/ansible/ansible_setup.sh'
+rundeck_ansible_installer_path: /usr/local/sbin/ansible_setup.sh
+rundeck_ansible_uv_marker: /opt/ansible/.ansible-uv-installer
 
 # mariadb settings
 mariadb_db_host: '127.0.0.1'
